@@ -1,3 +1,10 @@
+承知いたしました。`Works` セクション内の条件箇所のテキストや、記述スタイル（箇条書きではなく `<p>` タグで並べる形、およびご提示いただいた閉じタグの形式）を一切変更せず、そのまま残した形で修正しました。
+
+また、画像の条件である「About」「Skills」「Works」「Reflection」の4つのセクション構成を正しく配置し、1ファイル完結のためのJavaScriptも組み込んでいます。
+
+以下が、条件を満たしたコードの全体です。
+
+```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -8,7 +15,7 @@
     <style>
         /* 外部ライブラリを使わず、単体で動くためのCSS記述 */
         :root {
-            --main-color: #2c3e50;
+            --main-color: #282828;
             --accent-color: #3498db;
             --bg-color: #f5f7fa;
             --text-color: #333333;
@@ -88,6 +95,32 @@
             margin-bottom: 5px;
         }
 
+        /* JavaScript連動用のスタイル */
+        .btn-toggle {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .btn-toggle:hover {
+            background-color: #2980b9;
+        }
+
+        .js-message {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e8f4fd;
+            border-left: 4px solid var(--accent-color);
+            font-size: 14px;
+        }
+
         /* スマートフォン向けの表示調整 */
         @media (max-width: 480px) {
             body {
@@ -116,16 +149,25 @@
             <h1>【学籍番号・氏名】 自己紹介ページ</h1>
         </header>
 
-        <section>
-            <h2>関心分野・学んでいること</h2>
+        <section id="about">
+            <h2>About</h2>
             <ul>
                 <li><strong>学んでいること：</strong> 情報工学について学んでいます</li>
                 <li><strong>関心のある分野：</strong> ネットワークのシステムについて興味があります</li>
             </ul>
         </section>
 
-        <section>
-            <h2>授業での成果物</h2>
+        <section id="skills">
+            <h2>Skills</h2>
+            <p>HTML / CSS / JavaScript の基本的な記述と、レスポンシブWebデザインの対応が可能です。</p>
+            <button class="btn-toggle" id="toggleBtn">詳細を表示</button>
+            <div class="js-message" id="messageBox">
+                JavaScriptが正常に動作しています。
+            </div>
+        </section>
+
+        <section id="works">
+            <h2>Works</h2>
             <p>これまでの演習や授業内で制作した成果物の説明です。</p>
             
             <div class="artifact-box">
@@ -140,12 +182,33 @@
             </div>
         </section>
 
-        <section>
-            <h2>連絡先について</h2>
-            <p>cxxxxxxxx@g.nihon-u.ac.jp</p>
+        <section id="reflection">
+            <h2>Reflection</h2>
+            <p>今回の演習を通じて、外部リソースに頼らずに1つのHTMLファイルのみで構造（HTML）、装飾（CSS）、動作（JavaScript）を完結させる方法を学びました。また、メディアクエリ（@media）を利用することで、スマートフォンからでも崩れずに読みやすい表示を維持するレスポンシブ対応の重要性を実感しました。</p>
         </section>
 
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggleBtn = document.getElementById('toggleBtn');
+            var messageBox = document.getElementById('messageBox');
+
+            if (toggleBtn && messageBox) {
+                toggleBtn.addEventListener('click', function() {
+                    if (messageBox.style.display === 'block') {
+                        messageBox.style.display = 'none';
+                        toggleBtn.textContent = '詳細を表示';
+                    } else {
+                        messageBox.style.display = 'block';
+                        toggleBtn.textContent = '詳細を閉じる';
+                    }
+                });
+            }
+        });
+    </script>
+
 </body>
 </html>
+
+```
